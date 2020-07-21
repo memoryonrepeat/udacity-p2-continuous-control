@@ -105,6 +105,10 @@ class Agent():
         # ---------------------------- update actor ---------------------------- #
         # Compute actor loss
         actions_pred = self.actor_local(states)
+
+        # actor network tries to improve policy --> gradient ascent
+        # critic network tries to minimize estimate difference --> gradient descent
+        # ==> actor network loss = - (mean of all estimates)
         actor_loss = -self.critic_local(states, actions_pred).mean()
         # Minimize the loss
         self.actor_optimizer.zero_grad()
